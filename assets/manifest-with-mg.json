@@ -1,0 +1,119 @@
+{
+  "applications": [
+    {
+      "application_id": "3f32c66a-af0c-4fb1-ae16-49cb2ecd20a1",
+      "checksum": "7f45e01f785123c4f16d3935f02d93ef3467a520646c86ed70f86a4f49205e04",
+      "name": "Magic Game",
+      "uri": "http://localhost:8080/app/Magic Game/3f32c66a-af0c-4fb1-ae16-49cb2ecd20a1"
+    },
+    {
+      "application_id": "888c4c95-3ac0-4540-8af6-6ed1276dae34",
+      "checksum": "3aaeda5d605740f66465b63b6b28429b4ac56020d094ad6aa06744566de2ba19",
+      "name": "HTML5 Video App",
+      "uri": "http://localhost:8080/app/HTML5 Video App/888c4c95-3ac0-4540-8af6-6ed1276dae34"
+    }
+  ],
+  "contents": [
+    {
+      "application_ref": "3f32c66a-af0c-4fb1-ae16-49cb2ecd20a1",
+      "assets": [],
+      "configuration": {
+        "fields": [],
+        "identifier": "video"
+      },
+      "id": "124",
+      "trigger_group": {
+        "operator": "IS",
+        "type": "UNTARGETED",
+        "value": true
+      }
+    },
+    {
+      "application_ref": "888c4c95-3ac0-4540-8af6-6ed1276dae34",
+      "assets": [
+        {
+          "checksum": "388123e5ebc0a81667d25e0e000cf95b5a48c1ce1b0ee49f26b7ff5e2c996aa1",
+          "id": "2173",
+          "preview_uri": "https://adv-ems-integration.s3.amazonaws.com:443/assets/thumbnails/2017/10/27/c102e26c-14df-4bef-ac77-1165364f85c7-thumbnail.jpg?Signature=6iok%2BuN5ufYAhr29Ub1finTvGoM%3D&Expires=1510239586&AWSAccessKeyId=AKIAJ27KW46XU6IO6JJQ",
+          "role": "video",
+          "uri": "http://localhost:8080/asset/049b8203-cce1-4a65-91bc-8b857cdae71a.mp4"
+        }
+      ],
+      "configuration": {
+        "fields": [],
+        "identifier": "video"
+      },
+      "id": "128",
+      "trigger_group": {
+        "children": [
+          {
+            "operator": "IS",
+            "type": "GENDER",
+            "value": "FEMALE"
+          },
+          {
+            "operator": "IS_BETWEEN",
+            "type": "AGE",
+            "value": "0,100"
+          }
+        ],
+        "operator": "AND"
+      }
+    },
+    {
+      "application_ref": "888c4c95-3ac0-4540-8af6-6ed1276dae34",
+      "assets": [
+        {
+          "checksum": "cfb32ea64a86a57e1b2a1f7eff57de57003c0a1c4ccd34d46c4b4774499af53a",
+          "id": "2171",
+          "preview_uri": "https://adv-ems-integration.s3.amazonaws.com:443/assets/thumbnails/2017/10/27/02c0c246-3d40-497d-b6c9-af214337a915-thumbnail.jpg?Signature=kWbkLm3jRJg69X4HnQTHjHtIGnw%3D&Expires=1510239586&AWSAccessKeyId=AKIAJ27KW46XU6IO6JJQ",
+          "role": "video",
+          "uri": "http://localhost:8080/asset/d65f3be0-608c-41a8-bd04-3539faf30bda.mp4"
+        }
+      ],
+      "configuration": {
+        "fields": [],
+        "identifier": "video"
+      },
+      "id": "129",
+      "trigger_group": {
+        "children": [
+          {
+            "operator": "IS",
+            "type": "GENDER",
+            "value": "MALE"
+          },
+          {
+            "operator": "IS_BETWEEN",
+            "type": "AGE",
+            "value": "0,100"
+          }
+        ],
+        "operator": "AND"
+      }
+    },
+    {
+      "application_ref": "888c4c95-3ac0-4540-8af6-6ed1276dae34",
+      "assets": [
+        {
+          "checksum": "83b3c737a391714a3809210ebfd909106f9fbff4d5027fbedcc0b6faa5b62885",
+          "id": "2176",
+          "preview_uri": "https://adv-ems-integration.s3.amazonaws.com:443/assets/thumbnails/2017/10/27/72e76841-c0fc-4d7d-b7ab-37c47b535942-thumbnail.jpg?Signature=i6RiTrvpitG%2FFXL5LYQ3kmjPV5g%3D&Expires=1510239586&AWSAccessKeyId=AKIAJ27KW46XU6IO6JJQ",
+          "role": "video",
+          "uri": "http://localhost:8080/asset/0b3afe37-70fa-4f20-ad53-61a372967057.mp4"
+        }
+      ],
+      "configuration": {
+        "fields": [],
+        "identifier": "video"
+      },
+      "id": "126",
+      "trigger_group": {
+        "operator": "IS",
+        "type": "UNTARGETED",
+        "value": true
+      }
+    }
+  ],
+  "poi-config": {}
+}

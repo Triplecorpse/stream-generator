@@ -1,0 +1,94 @@
+<div class="panel-body">
+  <form id="person-form" #newPersonForm="ngForm" (ngSubmit)="submitPersons(newPersonForm.value)">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <p class="group-header">Gender: </p>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4 col-xs-12">
+              <label class="radio-inline"><input type="radio" name="gender" value="male" [ngModel]>Male</label>
+            </div>
+            <div class="col-md-4 col-xs-12">
+              <label class="radio-inline"><input type="radio" name="gender" value="female" [ngModel]>Female</label>
+            </div>
+            <div class="col-md-4 col-xs-12">
+              <label class="radio-inline"><input type="radio" name="gender" value="random"
+                                                 [ngModel]="'random'">Random</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <p class="group-header">Random age:</p>
+        <div class="row">
+          <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+              <label for="minValue">From</label>
+              <input type="number" class="form-control" id="minValue" step=".1" min="0" [ngModel]="0"
+                     name="ageMinValue">
+            </div>
+          </div>
+          <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+              <label for="maxValue">To</label>
+              <input type="number" class="form-control" id="maxValue" step=".1" min="0" [ngModel]="100"
+                     name="ageMaxValue">
+            </div>
+          </div>
+          <div class="col-md-4 col-xs-12">
+            <div class="form-group">
+              <label for="ADeviation" title="Deviation">Deviation</label>
+              <input type="number" class="form-control" id="ADeviation" step=".1" min="0" [ngModel]="1"
+                     name="ageDeviation">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <p class="group-header">Position</p>
+        <div class="row">
+          <div class="col-md-3 col-xs-12">
+            <label for="x" title="Horizontal">X</label>
+            <input type="number" class="form-control" id="x" step=".1" min="0" [ngModel]="0" name="posX">
+          </div>
+          <div class="col-md-3 col-xs-12">
+            <label for="y" title="Vertical">Y</label>
+            <input type="number" class="form-control" id="y" step=".1" min="0" [ngModel]="0" name="posY">
+          </div>
+          <div class="col-md-3 col-xs-12">
+            <label for="z" title="Depth">Z</label>
+            <input type="number" class="form-control" id="z" step=".1" min="0" [ngModel]="0" name="posZ">
+          </div>
+          <div class="col-md-3 col-xs-12">
+            <div class="form-group">
+              <label for="PDeviation" title="Deviation">Deviation</label>
+              <input type="number" class="form-control" id="PDeviation" step=".01" min="0" [ngModel]="1"
+                     name="posDeviation">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <p class="group-header">Other Options</p>
+        <label class="checkbox-inline"><input type="checkbox" name="lookingAtScreen" [ngModel]="false">Looking
+          at Screen</label>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="panel-footer">
+  <div class="row">
+    <div class="col-md-2 col-md-offset-8 col-xs-6">
+      <button class="btn btn-primary btn-block" type="submit" form="person-form">
+        <span *ngIf="qty === 1">Launch person</span>
+        <span *ngIf="qty > 1">Launch people</span>
+      </button>
+    </div>
+    <div class="col-md-2 col-xs-6">
+      <div class="input-group">
+        <span class="input-group-addon">Quantity</span>
+        <input type="number" step="1" class="form-control" min="1" required [(ngModel)]="qty">
+      </div>
+    </div>
+  </div>
+</div>

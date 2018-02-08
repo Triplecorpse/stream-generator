@@ -1,0 +1,79 @@
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        Person
+        <span class="label label-danger pull-right control-label" (click)="removePerson(person.person_id)"
+              title="Remove person">X</span>
+      </h4>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4 col-xs-12">
+          <div><span class="label label-default">Id: {{person.person_id}}</span></div>
+          <div><span class="label label-default"
+                     [class.male]="person.rolling_expected_values.gender.toLowerCase() === 'male'"
+                     [class.female]="person.rolling_expected_values.gender.toLowerCase() === 'female'">
+          Gender and age: {{person.rolling_expected_values.gender.toUpperCase()}} | {{person.rolling_expected_values.age}}
+        </span></div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+          <div class="row">
+            <div class="col-xs-6">
+              <button class="btn btn-block"
+                      [class.btn-default]="person.behavior.body.raising_left_hand !== 2"
+                      [class.btn-primary]="person.behavior.body.raising_left_hand === 2"
+                      (click)="editPerson({raising_left_hand: 2}, person)">
+                Left top
+              </button>
+              <button class="btn btn-block"
+                      [class.btn-default]="person.behavior.body.raising_left_hand !== 1"
+                      [class.btn-primary]="person.behavior.body.raising_left_hand === 1"
+                      (click)="editPerson({raising_left_hand: 1}, person)">
+                Left middle
+              </button>
+              <button class="btn btn-block"
+                      [class.btn-default]="person.behavior.body.raising_left_hand !== 0"
+                      [class.btn-primary]="person.behavior.body.raising_left_hand === 0"
+                      (click)="editPerson({raising_left_hand: 0}, person)">
+                Left lower
+              </button>
+            </div>
+            <div class="col-xs-6">
+              <button class="btn btn-block"
+                      [class.btn-default]="person.behavior.body.raising_right_hand !== 2"
+                      [class.btn-primary]="person.behavior.body.raising_right_hand === 2"
+                      (click)="editPerson({raising_right_hand: 2}, person)">
+                Right top
+              </button>
+              <button class="btn btn-block"
+                      [class.btn-default]="person.behavior.body.raising_right_hand !== 1"
+                      [class.btn-primary]="person.behavior.body.raising_right_hand === 1"
+                      (click)="editPerson({raising_right_hand: 1}, person)">
+                Right middle
+              </button>
+              <button class="btn btn-block"
+                      [class.btn-default]="person.behavior.body.raising_right_hand !== 0"
+                      [class.btn-primary]="person.behavior.body.raising_right_hand === 0"
+                      (click)="editPerson({raising_right_hand: 0}, person)">
+                Right lower
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+          <div><span class="label label-danger">x: {{person.coordinates.x}}</span></div>
+          <input type="text" class="form-control coordinate-control" value="0" #posX>
+          <div><span class="label label-success">y: {{person.coordinates.y}}</span></div>
+          <input type="text" class="form-control coordinate-control" value="0" #posY>
+          <div><span class="label label-primary">z: {{person.coordinates.z}}</span></div>
+          <input type="text" class="form-control coordinate-control" value="0" #posZ>
+          <button class="btn btn-primary pull-right btn-xs"
+                  (click)="editPerson({posX: posX.value, posY: posY.value, posZ: posZ.value}, person)"
+                  title="Edit coordinates">Update coordinates
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

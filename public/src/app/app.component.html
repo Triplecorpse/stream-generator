@@ -1,0 +1,40 @@
+<div>{{statusText}}</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapseExternalInput" aria-expanded="true">External Input</a>
+            </h4>
+          </div>
+          <div id="collapseExternalInput" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <app-external-input></app-external-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel-group">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapseNewPerson" aria-expanded="true">New Person</a>
+            </h4>
+          </div>
+          <div id="collapseNewPerson" class="panel-collapse collapse in">
+            <app-new-person></app-new-person>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-people-table [people]="people"></app-people-table>
+</div>
+<app-print-info [src]="src"></app-print-info>

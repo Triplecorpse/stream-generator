@@ -1,0 +1,347 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "manifest",
+  "type": "object",
+  "definitions": {
+    "application": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "application_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "checksum": {
+          "$ref": "#/definitions/sha256"
+        }
+      },
+      "required": [
+        "application_id",
+        "name",
+        "uri",
+        "checksum"
+      ]
+    },
+    "applications": {
+      "type": "array",
+      "description": "List of applications based on contents being scheduled",
+      "items": {
+        "$ref": "#/definitions/application"
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "application_ref": {
+          "type": "string",
+          "description": "Foreign key Application ID. This ID must be listed in /applications"
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/asset"
+          }
+        },
+        "configuration": {
+          "type": "object"
+        },
+        "trigger_group": {
+          "$ref": "#/definitions/triggers/trigger"
+        }
+      },
+      "required": [
+        "id",
+        "application_ref",
+        "assets",
+        "trigger_group"
+      ]
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "description": "Role of asset as defined by module.json. E.g. for wipe: upper, lower"
+        },
+        "id": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "preview_uri": {
+          "type": "string"
+        },
+        "checksum": {
+          "$ref": "#/definitions/sha256"
+        }
+      },
+      "required": [
+        "id",
+        "uri",
+        "checksum",
+        "preview_uri"
+      ]
+    },
+    "triggers": {
+      "group_or": {
+        "type": "object",
+        "description": "Trigger Group object, i.e. top level trigger group",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the triggergroup. Used as foreign key by contents"
+          },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "OR"
+            ]
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/triggers/trigger"
+            }
+          }
+        },
+        "required": [
+          "operator",
+          "children"
+        ]
+      },
+      "group_and": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "operator": {
+            "type": "string",
+            "enum": [
+              "AND"
+            ]
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/triggers/trigger",
+              "description": "New types of triggers (e.g. num_persons) must be listed here"
+            }
+          }
+        },
+        "required": [
+          "operator",
+          "children"
+        ]
+      },
+      "trigger": {
+        "anyOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {}
+          },
+          {
+            "$ref": "#/definitions/triggers/age"
+          },
+          {
+            "$ref": "#/definitions/triggers/gender"
+          },
+          {
+            "$ref": "#/definitions/triggers/persons"
+          },
+          {
+            "$ref": "#/definitions/triggers/location"
+          },
+          {
+            "$ref": "#/definitions/triggers/group_or"
+          },
+          {
+            "$ref": "#/definitions/triggers/group_and"
+          }
+        ]
+      },
+      "age": {
+        "allOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              },
+              "operator": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "AGE"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "operator",
+              "type"
+            ]
+          },
+          {
+            "description": "Set of age conditions",
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "operator": {
+                    "enum": [
+                      "IS_BETWEEN"
+                    ]
+                  },
+                  "value": {
+                    "type": "string",
+                    "pattern": "^(([1-9][0-9]+)|[0-9]),(([1-9][0-9]+)|[1-9])$"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gender": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Gender trigger. Only operator allowed is 'IS'. Definition of operator optional",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "GENDER"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "enum": [
+              "MALE",
+              "FEMALE"
+            ]
+          },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "IS"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "value"
+        ]
+      },
+      "persons": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Persons number trigger",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "PERSONS"
+            ]
+          },
+          "value": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "operator",
+          "value"
+        ]
+      },
+      "location": {
+        "type": "object",
+        "additionalProperties": false,
+        "description": "Location based trigger",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "LOCATION"
+            ]
+          },
+          "value": {
+            "type": "string"
+          },
+          "operator": {
+            "type": "string",
+            "enum": [
+              "IS", "IS_NOT"
+            ]
+          }
+        },
+        "required": [
+          "type",
+          "operator",
+          "value"
+        ]
+      }
+    },
+    "sha256": {
+      "type": "string",
+      "additionalProperties": false,
+      "minLength": 64,
+      "maxLength": 64
+    },
+    "conditions": {
+      "in_between": {
+        "type": "object",
+        "properties": {
+          "operator": {
+            "type": "string",
+            "enum": [
+              "IN_BETWEEN"
+            ]
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "operator",
+          "value"
+        ]
+      }
+    }
+  },
+  "properties": {
+    "applications": {
+      "$ref": "#/definitions/applications"
+    },
+    "contents": {
+      "type": "array",
+      "description": "List of currently scheduled contents",
+      "items": {
+        "$ref": "#/definitions/content"
+      }
+    }
+  },
+  "required": [
+    "applications",
+    "contents"
+  ]
+}
